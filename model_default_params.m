@@ -183,6 +183,16 @@ P(end).val = -0.5;
 P(end).type = 'excitation monitor';
 P(end).desc = 'threshold for Monitor-induced regorganization'; 
 
+P(end+1).name = 'eps_Sx';
+P(end).val = 0.01;
+P(end).type = 'excitation monitor';
+P(end).desc = 'supression value for syntactic systems'; 
+
+P(end+1).name = 'eps_Cx';
+P(end).val = 0.01;
+P(end).type = 'excitation monitor';
+P(end).desc = 'degeneracy reset factor for concept systems'; 
+
 P(end+1).name = 'tau_Fx_dem';
 P(end).val = 0.5*ones(1,Ns);
 P(end).type = 'feedback';

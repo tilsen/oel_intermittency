@@ -1,1 +1,8 @@
-Please see the .pdf of livescript "model_description_examples" for information.
+This repository contains code for running the oscillators/energy levels intermittency model, 
+which is described in:
+
+Tilsen, S. Phrasal rhythmicity and the sources of temporal intermittency in speech.
+
+Tilsen, S. (2019) Syntax with oscillators and energy levels. Language Science Press.
+
+Please see the model_description_examples.pdf or model_description_examples.mlx for information.

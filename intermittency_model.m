@@ -41,9 +41,6 @@ ix_diff_sign = sign(C_C) ~= sign(C_C');
 C_C(tril(ix_diff_sign)) = -C_C(tril(ix_diff_sign));
 
 %%
-%gaussian = @(x,c)exp(-((x-c).^2)./(2*sigma^2));
-%dgaussian = @(x,c)-(x-c).*gaussian(x,c);
-
 V_E = @(x,c)-(x-c).*(exp(-((x-c).^2)./(2*sigma_VE^2)));
 V_Me = @(x)exp(-(x.^2)./(2*sigme_VMe^2));
 
@@ -179,7 +176,7 @@ for i=1:nT-1
         An(i+1) = 0;
         Sx(i+1,:) = Sx0 + eta_Sx0*rand(1,Ns);
         Me(i+1) = 0;
-        Cx(i+1,:) = Cx(i+1,:)*0.01;
+        Cx(i+1,:) = Cx(i+1,:)*eps_Cx;
         EV(end+1,:) = {t(i), 'deg_estate'};  %#ok<*AGROW>
 
     % e-organization degeneracy after re-organization has occurred
@@ -188,16 +185,10 @@ for i=1:nT-1
         An(i+1) = 0;
         Me(i+1) = 0;
 
-        %Sx_reorg = linspace(1,0,Ns-sum(ix_sup)+1); Sx_reorg = Sx_reorg(1:end-1);
-        %         Sx_reorg = (sum(~ix_sup):1)/sum(~ix_sup);
-        %         Sx_r = zeros(1,Ns);
-        %         Sx_r(~ix_sup) = Sx_reorg;
-        %         Sx(i+1,:) = (~ix_sup).*(Sx_r - eta_Sx0*rand(1,Ns)) + ix_sup*0.01; %only reset non-demoted systems
-
-        Sx(i+1,ix_sup) = 0.01;
+        Sx(i+1,ix_sup) = eps_Sx;
         Sx(i+1,~ix_sup) = (sum(~ix_sup):1)/sum(~ix_sup);
 
-        Cx(i+1,:) = Cx(i+1,:)*0.01;
+        Cx(i+1,:) = Cx(i+1,:)*eps_Cx;
         EV(end+1,:) = {t(i), 'deg_estate'};
 
     % sequence completion
@@ -223,7 +214,7 @@ for i=1:nT-1
         An(i+1) = 0;
         Me(i+1) = 0;
         Ex(i+1,:) = e_reorg(Ex(i+1,:));
-        Sx(i+1,ix_dem) = 0.01;
+        Sx(i+1,ix_dem) = eps_Sx;
         EV(end+1,:) = {t(i), 'can_reorg'};
         %plot_sim(getvars(whos));
 
